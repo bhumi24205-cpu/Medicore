@@ -107,6 +107,35 @@ module.exports = async function handler(req, res) {
   }
 
   // 3. Doctors & Departments
+  if (pathname.includes('/slots')) {
+    const docId = pathname.split('/')[2] || '1';
+    return json({
+      doctor_id: Number(docId),
+      date: urlObj.searchParams.get('date') || new Date().toISOString().slice(0, 10),
+      day_of_week: 'Monday',
+      available: true,
+      schedule: {
+        start_time: '09:00',
+        end_time: '13:00',
+        slot_duration_min: 20
+      },
+      slots: [
+        { time: '09:00', available: true },
+        { time: '09:20', available: true },
+        { time: '09:40', available: false },
+        { time: '10:00', available: true },
+        { time: '10:20', available: true },
+        { time: '10:40', available: true },
+        { time: '11:00', available: true },
+        { time: '11:20', available: true },
+        { time: '11:40', available: true },
+        { time: '12:00', available: true },
+        { time: '12:20', available: true },
+        { time: '12:40', available: true }
+      ]
+    });
+  }
+
   if (pathname === '/doctors/public' || pathname === '/doctors') {
     const deptId = urlObj.searchParams.get('dept_id');
     let list = [...DOCTORS];
@@ -169,16 +198,27 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  // 6. Appointments
+  // 6. Appointments Schedule
   if (pathname === '/appointments') {
     if (req.method === 'POST') {
-      return json({ appointment_id: 101, message: 'Appointment scheduled successfully.' }, 201);
+      return json({ success: true, appointment_id: 101, message: 'Appointment scheduled successfully.' }, 201);
     }
-    return json([
-      { appointment_id: 1, patient_id: 1, patient_name: 'Rohan Mishra', doctor_id: 1, doctor_name: 'Dr. Rajesh Sharma', dept_name: 'Cardiology', date: '2026-11-20', time: '09:30:00', status: 'Scheduled', fee: 1000 },
-      { appointment_id: 2, patient_id: 2, patient_name: 'Sunita Devi', doctor_id: 2, doctor_name: 'Dr. Anita Verma', dept_name: 'Neurology', date: '2026-11-20', time: '10:30:00', status: 'Completed', fee: 1200 },
-      { appointment_id: 3, patient_id: 3, patient_name: 'Arjun Reddy', doctor_id: 3, doctor_name: 'Dr. Vikram Singh', dept_name: 'Orthopedics', date: '2026-11-20', time: '11:00:00', status: 'Scheduled', fee: 900 }
-    ]);
+    let list = [...(data.APPOINTMENTS || [])];
+    const statusParam = urlObj.searchParams.get('status');
+    const dateParam = urlObj.searchParams.get('date');
+    if (statusParam) list = list.filter(a => a.status === statusParam);
+    if (dateParam) list = list.filter(a => a.appointment_date === dateParam);
+    return json(list);
+  }
+
+  if (pathname.startsWith('/appointments/') && pathname.endsWith('/status')) {
+    return json({ success: true, message: 'Appointment status updated successfully.' });
+  }
+
+  if (pathname.startsWith('/appointments/')) {
+    const apptId = parseInt(pathname.split('/').pop(), 10);
+    const appt = (data.APPOINTMENTS || []).find(a => a.appointment_id === apptId) || (data.APPOINTMENTS || [])[0];
+    return json(appt);
   }
 
   // 7. Admissions & Rooms (Flow 4)
@@ -203,12 +243,33 @@ module.exports = async function handler(req, res) {
   }
 
   // 9. Diagnostic Laboratory & Orders
+  if (pathname === '/clinical/lab-tests') {
+    return json([
+      { test_id: 1, test_name: 'Complete Blood Count', category: 'Blood', sample_type: 'Blood', normal_range: '4.5-11 (WBC x1000)', price: 350 },
+      { test_id: 2, test_name: 'Lipid Profile', category: 'Blood', sample_type: 'Blood', normal_range: 'LDL < 100 mg/dL', price: 600 },
+      { test_id: 3, test_name: 'Blood Sugar Fasting', category: 'Blood', sample_type: 'Blood', normal_range: '70-100 mg/dL', price: 150 },
+      { test_id: 4, test_name: 'Thyroid Profile', category: 'Blood', sample_type: 'Blood', normal_range: 'TSH 0.4-4.0', price: 700 },
+      { test_id: 5, test_name: 'Urine Routine', category: 'Urine', sample_type: 'Urine', normal_range: 'Clear, pH 5.5-7.0', price: 200 },
+      { test_id: 6, test_name: 'Chest X-Ray', category: 'Imaging', sample_type: 'None', normal_range: 'Clear lung fields', price: 500 },
+      { test_id: 7, test_name: 'Knee X-Ray', category: 'Imaging', sample_type: 'None', normal_range: 'Normal joint space', price: 600 },
+      { test_id: 8, test_name: 'ECG', category: 'Cardiac', sample_type: 'None', normal_range: 'Normal sinus rhythm', price: 300 }
+    ]);
+  }
+
   if (pathname === '/lab' || pathname === '/clinical/lab-orders') {
     return json(data.LAB_ORDERS);
   }
 
   if (pathname.startsWith('/clinical/lab-orders/') && pathname.includes('/tests/')) {
     return json({ success: true, message: 'Laboratory test result saved successfully.' });
+  }
+
+  if (pathname.includes('/prescription')) {
+    return json({ success: true, prescription_id: Date.now(), message: 'Prescription recorded successfully.' }, 201);
+  }
+
+  if (pathname.includes('/lab-orders')) {
+    return json({ success: true, lab_order_id: Date.now(), message: 'Lab order created successfully.' }, 201);
   }
 
   // 10. Billing Ledger & Payments (Flow 5 & View v_bill_summary)

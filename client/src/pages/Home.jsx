@@ -246,24 +246,30 @@ export default function Home() {
             <div className="lg:col-span-5 relative">
               <div className="rounded-2xl overflow-hidden shadow-lg border border-[#C2DBEB] bg-white">
                 <img
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1000&q=80"
+                  src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1000&q=80"
                   alt="Attending Physician during Clinical Consultation"
-                  className="w-full h-[420px] object-cover object-center"
+                  className="w-full h-[420px] object-cover object-top"
                 />
-                <div className="p-4 bg-white border-t border-[#E1EDF5]">
-                  <div className="text-sm font-bold text-[#123B5D] font-heading">Dr. Rajesh Sharma, MD, DM</div>
-                  <div className="text-xs text-[#657B8F]">Senior Consultant & Head, Department of Cardiology</div>
+                <div className="p-4 bg-white border-t border-[#E1EDF5] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <div className="text-sm font-bold text-[#123B5D] font-heading">Dr. Rajesh Sharma, MD, DM</div>
+                    <div className="text-xs text-[#657B8F]">Senior Consultant & Head, Department of Cardiology</div>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DDF3EE] text-[#0C685B] text-xs font-semibold self-start sm:self-auto border border-[#C2DBEB]/60">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#16A6A1]" />
+                    <span>NABH & NABL Certified</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Verified Institutional Quality Badges */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 shadow-md border border-[#C2DBEB] flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-[#DDF3EE] text-[#0C685B] flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-[#16A6A1]" />
+              {/* Institutional Quality Floating Badge at Top Right (No text overlap) */}
+              <div className="hidden sm:flex absolute -top-4 -right-4 bg-white rounded-xl p-3 shadow-md border border-[#C2DBEB] items-center gap-2.5 z-10">
+                <div className="w-8 h-8 rounded-lg bg-[#DDF3EE] text-[#0C685B] flex items-center justify-center">
+                  <ShieldCheck className="w-4 h-4 text-[#16A6A1]" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-[#123B5D]">NABH & NABL</div>
-                  <div className="text-xs text-[#657B8F]">Certified Hospital</div>
+                  <div className="text-[11px] text-[#657B8F]">Accredited Institution</div>
                 </div>
               </div>
             </div>

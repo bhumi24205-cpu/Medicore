@@ -2074,5 +2074,410 @@ module.exports = {
         }
       ]
     }
+  ],
+  "APPOINTMENTS": [
+    {
+      "appointment_id": 1,
+      "patient_id": 1,
+      "patient_first_name": "Rohan",
+      "patient_last_name": "Mishra",
+      "doctor_id": 1,
+      "doctor_first_name": "Rajesh",
+      "doctor_last_name": "Sharma",
+      "specialization": "Cardiologist",
+      "dept_name": "Cardiology",
+      "appointment_date": "2026-10-01",
+      "appointment_time": "09:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Chest pain on exertion",
+      "has_prescription": true,
+      "has_lab_order": true,
+      "prescription": {
+        "prescription_id": 1,
+        "diagnosis": "Angina Pectoris",
+        "advice": "Avoid heavy exercise, maintain low salt diet",
+        "follow_up_date": "2026-10-15",
+        "medicines": [
+          {
+            "medicine_name": "Atorvastatin",
+            "dosage": "1 tablet",
+            "frequency": "Once daily at night",
+            "duration_days": 30,
+            "quantity": 30,
+            "instructions": "Take after dinner"
+          },
+          {
+            "medicine_name": "Aspirin",
+            "dosage": "1 tablet",
+            "frequency": "Once daily",
+            "duration_days": 30,
+            "quantity": 30,
+            "instructions": "Take after breakfast"
+          }
+        ]
+      },
+      "lab_order": {
+        "lab_order_id": 1,
+        "order_date": "2026-10-01 09:30:00",
+        "status": "Completed",
+        "tests": [
+          {
+            "test_name": "Lipid Profile",
+            "category": "Blood",
+            "result_value": "LDL 148 mg/dL",
+            "result_status": "Abnormal"
+          },
+          {
+            "test_name": "12-Lead ECG",
+            "category": "Cardiac",
+            "result_value": "ST changes seen",
+            "result_status": "Abnormal"
+          }
+        ]
+      },
+      "bill": {
+        "bill_id": 1,
+        "total_amount": 1180,
+        "amount_paid": 1180,
+        "payment_status": "Paid"
+      }
+    },
+    {
+      "appointment_id": 2,
+      "patient_id": 2,
+      "patient_first_name": "Sunita",
+      "patient_last_name": "Devi",
+      "doctor_id": 2,
+      "doctor_first_name": "Anita",
+      "doctor_last_name": "Verma",
+      "specialization": "Neurologist",
+      "dept_name": "Neurology",
+      "appointment_date": "2026-10-01",
+      "appointment_time": "10:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Frequent migraine episodes",
+      "has_prescription": true,
+      "has_lab_order": true,
+      "prescription": {
+        "prescription_id": 2,
+        "diagnosis": "Chronic Migraine",
+        "advice": "Avoid bright light, maintain regular sleep schedule",
+        "follow_up_date": "2026-10-16",
+        "medicines": [
+          {
+            "medicine_name": "Sumatriptan",
+            "dosage": "1 tablet",
+            "frequency": "When migraine starts",
+            "duration_days": 10,
+            "quantity": 10,
+            "instructions": "Max 2 daily"
+          },
+          {
+            "medicine_name": "Paracetamol",
+            "dosage": "1 tablet",
+            "frequency": "Twice daily",
+            "duration_days": 5,
+            "quantity": 10,
+            "instructions": "As needed"
+          }
+        ]
+      },
+      "lab_order": {
+        "lab_order_id": 2,
+        "order_date": "2026-10-01 10:30:00",
+        "status": "Completed",
+        "tests": [
+          {
+            "test_name": "Complete Blood Count",
+            "category": "Blood",
+            "result_value": "Normal baseline",
+            "result_status": "Normal"
+          },
+          {
+            "test_name": "Blood Sugar Fasting",
+            "category": "Blood",
+            "result_value": "95 mg/dL",
+            "result_status": "Normal"
+          }
+        ]
+      },
+      "bill": {
+        "bill_id": 2,
+        "total_amount": 1500,
+        "amount_paid": 1000,
+        "payment_status": "Partial"
+      }
+    },
+    {
+      "appointment_id": 3,
+      "patient_id": 3,
+      "patient_first_name": "Arjun",
+      "patient_last_name": "Reddy",
+      "doctor_id": 3,
+      "doctor_first_name": "Vikram",
+      "doctor_last_name": "Singh",
+      "specialization": "Orthopedic Surgeon",
+      "dept_name": "Orthopedics",
+      "appointment_date": "2026-10-02",
+      "appointment_time": "09:30:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Knee pain while walking",
+      "has_prescription": true,
+      "has_lab_order": true,
+      "prescription": {
+        "prescription_id": 3,
+        "diagnosis": "Knee Osteoarthritis",
+        "advice": "Physiotherapy and weight management",
+        "follow_up_date": "2026-11-12",
+        "medicines": [
+          {
+            "medicine_name": "Ibuprofen",
+            "dosage": "1 tablet",
+            "frequency": "Twice daily",
+            "duration_days": 7,
+            "quantity": 14,
+            "instructions": "Take after meals"
+          }
+        ]
+      },
+      "lab_order": {
+        "lab_order_id": 3,
+        "order_date": "2026-10-02 10:00:00",
+        "status": "Completed",
+        "tests": [
+          {
+            "test_name": "Knee X-Ray",
+            "category": "Imaging",
+            "result_value": "Joint space narrowing",
+            "result_status": "Abnormal"
+          }
+        ]
+      },
+      "bill": {
+        "bill_id": 3,
+        "total_amount": 900,
+        "amount_paid": 0,
+        "payment_status": "Unpaid"
+      }
+    },
+    {
+      "appointment_id": 4,
+      "patient_id": 4,
+      "patient_first_name": "Meera",
+      "patient_last_name": "Patel",
+      "doctor_id": 4,
+      "doctor_first_name": "Neha",
+      "doctor_last_name": "Gupta",
+      "specialization": "Pediatrician",
+      "dept_name": "Pediatrics",
+      "appointment_date": "2026-10-02",
+      "appointment_time": "11:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Cough and breathing trouble",
+      "has_prescription": true,
+      "has_lab_order": true
+    },
+    {
+      "appointment_id": 5,
+      "patient_id": 5,
+      "patient_first_name": "Imran",
+      "patient_last_name": "Khan",
+      "doctor_id": 5,
+      "doctor_first_name": "Sanjay",
+      "doctor_last_name": "Mehta",
+      "specialization": "Dermatologist",
+      "dept_name": "Dermatology",
+      "appointment_date": "2026-10-03",
+      "appointment_time": "10:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Skin rash on arms",
+      "has_prescription": true,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 6,
+      "patient_id": 6,
+      "patient_first_name": "Pooja",
+      "patient_last_name": "Sharma",
+      "doctor_id": 6,
+      "doctor_first_name": "Priya",
+      "doctor_last_name": "Nair",
+      "specialization": "ENT Specialist",
+      "dept_name": "ENT",
+      "appointment_date": "2026-10-03",
+      "appointment_time": "12:00:00",
+      "appointment_type": "Follow-up",
+      "status": "Completed",
+      "reason": "Ear pain review",
+      "has_prescription": true,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 7,
+      "patient_id": 7,
+      "patient_first_name": "Harsh",
+      "patient_last_name": "Agarwal",
+      "doctor_id": 7,
+      "doctor_first_name": "Amit",
+      "doctor_last_name": "Joshi",
+      "specialization": "Physician",
+      "dept_name": "General Medicine",
+      "appointment_date": "2026-10-04",
+      "appointment_time": "09:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Fever and general malaise",
+      "has_prescription": true,
+      "has_lab_order": true
+    },
+    {
+      "appointment_id": 8,
+      "patient_id": 8,
+      "patient_first_name": "Kiran",
+      "patient_last_name": "Bhatia",
+      "doctor_id": 8,
+      "doctor_first_name": "Kavita",
+      "doctor_last_name": "Rao",
+      "specialization": "Gynecologist",
+      "dept_name": "Gynecology",
+      "appointment_date": "2026-10-04",
+      "appointment_time": "10:30:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Routine pregnancy consultation",
+      "has_prescription": true,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 9,
+      "patient_id": 9,
+      "patient_first_name": "Vivek",
+      "patient_last_name": "Chauhan",
+      "doctor_id": 9,
+      "doctor_first_name": "Manoj",
+      "doctor_last_name": "Kapoor",
+      "specialization": "Oncologist",
+      "dept_name": "Oncology",
+      "appointment_date": "2026-10-05",
+      "appointment_time": "11:00:00",
+      "appointment_type": "New",
+      "status": "Completed",
+      "reason": "Persistent weight loss and lymphadenopathy",
+      "has_prescription": true,
+      "has_lab_order": true
+    },
+    {
+      "appointment_id": 10,
+      "patient_id": 10,
+      "patient_first_name": "Anjali",
+      "patient_last_name": "Saxena",
+      "doctor_id": 10,
+      "doctor_first_name": "Deepa",
+      "doctor_last_name": "Iyer",
+      "specialization": "Emergency Medicine",
+      "dept_name": "Emergency",
+      "appointment_date": "2026-10-05",
+      "appointment_time": "14:00:00",
+      "appointment_type": "Emergency",
+      "status": "Completed",
+      "reason": "Acute abdominal pain",
+      "has_prescription": true,
+      "has_lab_order": true
+    },
+    {
+      "appointment_id": 11,
+      "patient_id": 1,
+      "patient_first_name": "Rohan",
+      "patient_last_name": "Mishra",
+      "doctor_id": 1,
+      "doctor_first_name": "Rajesh",
+      "doctor_last_name": "Sharma",
+      "specialization": "Cardiologist",
+      "dept_name": "Cardiology",
+      "appointment_date": "2026-11-20",
+      "appointment_time": "09:00:00",
+      "appointment_type": "Follow-up",
+      "status": "Scheduled",
+      "reason": "Follow-up on ECG review and titration",
+      "has_prescription": false,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 12,
+      "patient_id": 2,
+      "patient_first_name": "Sunita",
+      "patient_last_name": "Devi",
+      "doctor_id": 2,
+      "doctor_first_name": "Anita",
+      "doctor_last_name": "Verma",
+      "specialization": "Neurologist",
+      "dept_name": "Neurology",
+      "appointment_date": "2026-11-20",
+      "appointment_time": "10:00:00",
+      "appointment_type": "Follow-up",
+      "status": "Cancelled",
+      "reason": "Migraine follow-up review",
+      "has_prescription": false,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 13,
+      "patient_id": 11,
+      "patient_first_name": "Deepak",
+      "patient_last_name": "Yadav",
+      "doctor_id": 7,
+      "doctor_first_name": "Amit",
+      "doctor_last_name": "Joshi",
+      "specialization": "Physician",
+      "dept_name": "General Medicine",
+      "appointment_date": "2026-11-21",
+      "appointment_time": "09:30:00",
+      "appointment_type": "New",
+      "status": "No-Show",
+      "reason": "Annual preventive wellness checkup",
+      "has_prescription": false,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 14,
+      "patient_id": 12,
+      "patient_first_name": "Nisha",
+      "patient_last_name": "Jain",
+      "doctor_id": 4,
+      "doctor_first_name": "Neha",
+      "doctor_last_name": "Gupta",
+      "specialization": "Pediatrician",
+      "dept_name": "Pediatrics",
+      "appointment_date": "2026-11-22",
+      "appointment_time": "10:00:00",
+      "appointment_type": "New",
+      "status": "Scheduled",
+      "reason": "Child immunization schedule assessment",
+      "has_prescription": false,
+      "has_lab_order": false
+    },
+    {
+      "appointment_id": 15,
+      "patient_id": 3,
+      "patient_first_name": "Arjun",
+      "patient_last_name": "Reddy",
+      "doctor_id": 3,
+      "doctor_first_name": "Vikram",
+      "doctor_last_name": "Singh",
+      "specialization": "Orthopedic Surgeon",
+      "dept_name": "Orthopedics",
+      "appointment_date": "2026-11-23",
+      "appointment_time": "09:30:00",
+      "appointment_type": "Follow-up",
+      "status": "Scheduled",
+      "reason": "Post-physical therapy knee mobility evaluation",
+      "has_prescription": false,
+      "has_lab_order": false
+    }
   ]
 };
