@@ -30,6 +30,59 @@ const SAMPLE_DEPTS = [
   { dept_id: 10, dept_name: 'Emergency', floor_no: 0, phone_ext: '002', head_doctor_id: 10, head_first_name: 'Deepa', head_last_name: 'Iyer', head_specialization: 'Emergency Medicine', total_doctors: 1 }
 ];
 
+// GET /api/doctors/public (for public website homepage)
+router.get('/public', async (req, res, next) => {
+  try {
+    const { dept_id } = req.query;
+    let sql = `
+      SELECT d.doctor_id, d.first_name, d.last_name, d.gender,
+             d.specialization, d.qualification, d.license_no, d.phone, d.email,
+             d.consultation_fee, d.joining_date, vd.experience_years, d.status,
+             dep.dept_id, dep.dept_name, dep.floor_no,
+             EXISTS(
+               SELECT 1 FROM doctor_schedule ds
+               WHERE ds.doctor_id = d.doctor_id
+                 AND JSON_UNQUOTE(JSON_EXTRACT(ds.slot_config, '$.is_video')) = 'true'
+             ) AS offers_video
+      FROM doctor d
+      JOIN v_doctor vd ON d.doctor_id = vd.doctor_id
+      JOIN department dep ON d.dept_id = dep.dept_id
+      WHERE d.status = 'Active'
+    `;
+    const params = [];
+    if (dept_id) {
+      sql += ' AND d.dept_id = ?';
+      params.push(dept_id);
+    }
+    sql += ' ORDER BY d.first_name, d.last_name';
+    const [doctors] = await pool.query(sql, params);
+    res.json(doctors);
+  } catch (err) {
+    let list = SAMPLE_DOCTORS.filter(d => d.status === 'Active');
+    if (req.query.dept_id) list = list.filter(d => String(d.dept_id) === String(req.query.dept_id));
+    res.json(list);
+  }
+});
+
+// GET /api/doctors/departments/public (for public website homepage)
+router.get('/departments/public', async (req, res, next) => {
+  try {
+    const [departments] = await pool.query(`
+      SELECT dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext,
+             d.doctor_id AS head_doctor_id, d.first_name AS head_first_name, d.last_name AS head_last_name,
+             d.specialization AS head_specialization, COUNT(DISTINCT doc.doctor_id) AS total_doctors
+      FROM department dep
+      LEFT JOIN doctor d ON dep.head_doctor_id = d.doctor_id
+      LEFT JOIN doctor doc ON dep.dept_id = doc.dept_id
+      GROUP BY dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext, d.doctor_id, d.first_name, d.last_name, d.specialization
+      ORDER BY dep.floor_no, dep.dept_name
+    `);
+    res.json(departments);
+  } catch (err) {
+    res.json(SAMPLE_DEPTS);
+  }
+});
+
 // GET /api/doctors
 router.get('/', verifyToken, async (req, res, next) => {
   try {
@@ -74,8 +127,114 @@ router.get('/', verifyToken, async (req, res, next) => {
   }
 });
 
+// GET /api/doctors/public (for public website homepage)
+router.get('/public', async (req, res, next) => {
+  try {
+    const { dept_id } = req.query;
+    let sql = `
+      SELECT d.doctor_id, d.first_name, d.last_name, d.gender,
+             d.specialization, d.qualification, d.license_no, d.phone, d.email,
+             d.consultation_fee, d.joining_date, vd.experience_years, d.status,
+             dep.dept_id, dep.dept_name, dep.floor_no,
+             EXISTS(
+               SELECT 1 FROM doctor_schedule ds
+               WHERE ds.doctor_id = d.doctor_id
+                 AND JSON_UNQUOTE(JSON_EXTRACT(ds.slot_config, '$.is_video')) = 'true'
+             ) AS offers_video
+      FROM doctor d
+      JOIN v_doctor vd ON d.doctor_id = vd.doctor_id
+      JOIN department dep ON d.dept_id = dep.dept_id
+      WHERE d.status = 'Active'
+    `;
+    const params = [];
+    if (dept_id) {
+      sql += ' AND d.dept_id = ?';
+      params.push(dept_id);
+    }
+    sql += ' ORDER BY d.first_name, d.last_name';
+    const [doctors] = await pool.query(sql, params);
+    res.json(doctors);
+  } catch (err) {
+    let list = SAMPLE_DOCTORS.filter(d => d.status === 'Active');
+    if (req.query.dept_id) list = list.filter(d => String(d.dept_id) === String(req.query.dept_id));
+    res.json(list);
+  }
+});
+
+// GET /api/doctors/departments/public (for public website homepage)
+router.get('/departments/public', async (req, res, next) => {
+  try {
+    const [departments] = await pool.query(`
+      SELECT dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext,
+             d.doctor_id AS head_doctor_id, d.first_name AS head_first_name, d.last_name AS head_last_name,
+             d.specialization AS head_specialization, COUNT(DISTINCT doc.doctor_id) AS total_doctors
+      FROM department dep
+      LEFT JOIN doctor d ON dep.head_doctor_id = d.doctor_id
+      LEFT JOIN doctor doc ON dep.dept_id = doc.dept_id
+      GROUP BY dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext, d.doctor_id, d.first_name, d.last_name, d.specialization
+      ORDER BY dep.floor_no, dep.dept_name
+    `);
+    res.json(departments);
+  } catch (err) {
+    res.json(SAMPLE_DEPTS);
+  }
+});
+
 // GET /api/doctors/departments/list (Q2, Q3)
 router.get('/departments/list', verifyToken, async (req, res, next) => {
+  try {
+    const [departments] = await pool.query(`
+      SELECT dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext,
+             d.doctor_id AS head_doctor_id, d.first_name AS head_first_name, d.last_name AS head_last_name,
+             d.specialization AS head_specialization, COUNT(DISTINCT doc.doctor_id) AS total_doctors
+      FROM department dep
+      LEFT JOIN doctor d ON dep.head_doctor_id = d.doctor_id
+      LEFT JOIN doctor doc ON dep.dept_id = doc.dept_id
+      GROUP BY dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext, d.doctor_id, d.first_name, d.last_name, d.specialization
+      ORDER BY dep.floor_no, dep.dept_name
+    `);
+    res.json(departments);
+  } catch (err) {
+    res.json(SAMPLE_DEPTS);
+  }
+});
+
+// GET /api/doctors/public (for public website homepage)
+router.get('/public', async (req, res, next) => {
+  try {
+    const { dept_id } = req.query;
+    let sql = `
+      SELECT d.doctor_id, d.first_name, d.last_name, d.gender,
+             d.specialization, d.qualification, d.license_no, d.phone, d.email,
+             d.consultation_fee, d.joining_date, vd.experience_years, d.status,
+             dep.dept_id, dep.dept_name, dep.floor_no,
+             EXISTS(
+               SELECT 1 FROM doctor_schedule ds
+               WHERE ds.doctor_id = d.doctor_id
+                 AND JSON_UNQUOTE(JSON_EXTRACT(ds.slot_config, '$.is_video')) = 'true'
+             ) AS offers_video
+      FROM doctor d
+      JOIN v_doctor vd ON d.doctor_id = vd.doctor_id
+      JOIN department dep ON d.dept_id = dep.dept_id
+      WHERE d.status = 'Active'
+    `;
+    const params = [];
+    if (dept_id) {
+      sql += ' AND d.dept_id = ?';
+      params.push(dept_id);
+    }
+    sql += ' ORDER BY d.first_name, d.last_name';
+    const [doctors] = await pool.query(sql, params);
+    res.json(doctors);
+  } catch (err) {
+    let list = SAMPLE_DOCTORS.filter(d => d.status === 'Active');
+    if (req.query.dept_id) list = list.filter(d => String(d.dept_id) === String(req.query.dept_id));
+    res.json(list);
+  }
+});
+
+// GET /api/doctors/departments/public (for public website homepage)
+router.get('/departments/public', async (req, res, next) => {
   try {
     const [departments] = await pool.query(`
       SELECT dep.dept_id, dep.dept_name, dep.floor_no, dep.phone_ext,

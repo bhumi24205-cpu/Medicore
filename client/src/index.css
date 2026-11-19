@@ -3,8 +3,28 @@
 @tailwind utilities;
 
 @layer base {
-  h1, h2, h3, h4, .font-heading {
-    font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #263746;
+    background-color: #F5FAFC;
+  }
+
+  body {
+    @apply bg-ice text-charcoal font-sans antialiased;
+    font-weight: 400;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Manrope', 'Inter', sans-serif;
+    font-weight: 700;
+    color: #123B5D;
+    letter-spacing: -0.02em;
+  }
+
+  button, .btn {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600;
   }
 }
 
@@ -18,6 +38,13 @@
 .leaflet-container {
   width: 100%;
   height: 100%;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   z-index: 10;
+}
+
+/* Subtle glassmorphism */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }

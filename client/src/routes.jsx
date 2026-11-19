@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Patients from './pages/Patients';
@@ -24,7 +25,7 @@ import RuleLab from './pages/RuleLab';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="h-screen flex items-center justify-center">Loading session...</div>;
+  if (loading) return <div className="h-screen flex items-center justify-center font-sans text-sm text-[#123B5D]">Loading MediCore session...</div>;
   if (!user) return <Navigate to="/login" replace />;
   return children;
 }
@@ -32,34 +33,46 @@ function ProtectedRoute({ children }) {
 export default function AppRoutes() {
   return (
     <Routes>
+      {/* Public Facing Hospital Website */}
+      <Route path="/" element={<Home />} />
+      
+      {/* Staff & Patient Authentication */}
       <Route path="/login" element={<Login />} />
 
-      <Route path="/" element={
+      {/* Hospital Clinical & Management Portal */}
+      <Route path="/dashboard" element={
         <ProtectedRoute>
           <Layout />
         </ProtectedRoute>
       }>
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="patients" element={<Patients />} />
-        <Route path="patients/new" element={<PatientNew />} />
-        <Route path="patients/:id" element={<PatientDetail />} />
-        <Route path="doctors" element={<Doctors />} />
-        <Route path="departments" element={<Departments />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="appointments/new" element={<AppointmentNew />} />
-        <Route path="appointments/:id" element={<AppointmentDetail />} />
-        <Route path="admissions" element={<Admissions />} />
-        <Route path="billing" element={<Billing />} />
-        <Route path="pharmacy" element={<Pharmacy />} />
-        <Route path="lab" element={<LabOrders />} />
-        <Route path="map" element={<PatientMap />} />
-        <Route path="reports" element={<Reports />} />
-        <Route path="lab-tools/query-explorer" element={<QueryExplorer />} />
-        <Route path="lab-tools/rule-tests" element={<RuleLab />} />
+        <Route index element={<Dashboard />} />
       </Route>
 
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route element={
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      }>
+        <Route path="/patients" element={<Patients />} />
+        <Route path="/patients/new" element={<PatientNew />} />
+        <Route path="/patients/:id" element={<PatientDetail />} />
+        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/departments" element={<Departments />} />
+        <Route path="/appointments" element={<Appointments />} />
+        <Route path="/appointments/new" element={<AppointmentNew />} />
+        <Route path="/appointments/:id" element={<AppointmentDetail />} />
+        <Route path="/admissions" element={<Admissions />} />
+        <Route path="/billing" element={<Billing />} />
+        <Route path="/pharmacy" element={<Pharmacy />} />
+        <Route path="/lab" element={<LabOrders />} />
+        <Route path="/map" element={<PatientMap />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/lab-tools/query-explorer" element={<QueryExplorer />} />
+        <Route path="/lab-tools/rule-tests" element={<RuleLab />} />
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

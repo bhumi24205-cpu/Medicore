@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, UserCheck } from 'lucide-react';
+import { LogOut, UserCheck, Globe, Database } from 'lucide-react';
 
 export default function Header() {
   const { user, logout, switchDemoRole } = useAuth();
@@ -14,28 +15,40 @@ export default function Header() {
   ];
 
   return (
-    <header className="h-16 bg-white border-b border-medicore-border px-6 flex items-center justify-between shadow-sm flex-shrink-0 z-20">
+    <header className="h-16 bg-white border-b border-[#E1EDF5] px-6 flex items-center justify-between shadow-xs flex-shrink-0 z-20">
       <div className="flex items-center gap-4">
-        <h2 className="text-lg font-bold text-slate-800 font-serif">MediCore Health Portal</h2>
-        <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-          ● Connected to MySQL 8
+        <h2 className="text-base sm:text-lg font-bold text-[#123B5D] font-heading tracking-tight">
+          MediCore Clinical Portal
+        </h2>
+        <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#DDF3EE] text-[#0C685B] border border-[#BFE7DE]">
+          <Database className="w-3 h-3 text-[#16A6A1]" /> MySQL 8 Connected
         </span>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* Link back to public website */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#123B5D] bg-[#F5FAFC] hover:bg-[#E1EDF5] border border-[#C2DBEB] transition-colors"
+          title="Go to Public Hospital Website"
+        >
+          <Globe className="w-3.5 h-3.5 text-[#16A6A1]" />
+          <span className="hidden sm:inline">Hospital Website</span>
+        </Link>
+
         {/* Quick Demo Role Switcher */}
-        <div className="hidden sm:flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg p-1 text-xs">
-          <span className="text-slate-500 font-medium px-2 flex items-center gap-1">
-            <UserCheck className="w-3.5 h-3.5" /> Switch:
+        <div className="hidden lg:flex items-center gap-1 bg-[#F5FAFC] border border-[#E1EDF5] rounded-xl p-1 text-xs">
+          <span className="text-[#657B8F] font-semibold px-2 flex items-center gap-1">
+            <UserCheck className="w-3 h-3 text-[#16A6A1]" /> Switch:
           </span>
           {demoAccounts.map(acc => (
             <button
               key={acc.username}
               onClick={() => switchDemoRole(acc.username)}
-              className={`px-2 py-1 rounded transition-colors ${
+              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                 user?.username === acc.username
-                  ? 'bg-medicore-sidebar text-white font-semibold shadow-xs'
-                  : 'text-slate-600 hover:bg-slate-200'
+                  ? 'bg-[#123B5D] text-white font-semibold shadow-xs'
+                  : 'text-[#475A6C] hover:bg-[#E1EDF5]'
               }`}
             >
               {acc.label}
@@ -44,15 +57,15 @@ export default function Header() {
         </div>
 
         {/* User Info & Logout */}
-        <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
+        <div className="flex items-center gap-3 pl-3 border-l border-[#E1EDF5]">
           <div className="text-right">
-            <div className="text-sm font-semibold text-slate-800">{user?.username}</div>
-            <div className="text-xs text-medicore-teal font-medium">{user?.role}</div>
+            <div className="text-xs sm:text-sm font-bold text-[#123B5D]">{user?.username}</div>
+            <div className="text-[11px] text-[#16A6A1] font-semibold">{user?.role}</div>
           </div>
           <button
             onClick={logout}
             title="Log Out"
-            className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            className="p-2 text-[#657B8F] hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
           >
             <LogOut className="w-4 h-4" />
           </button>
