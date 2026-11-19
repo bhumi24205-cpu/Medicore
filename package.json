@@ -1,0 +1,12 @@
+{
+  "name": "medicore-root",
+  "version": "1.0.0",
+  "description": "MediCore Hospital Management Three-Tier Application",
+  "scripts": {
+    "start": "cd server && node src/app.js",
+    "dev:server": "cd server && node --watch src/app.js",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "db:init": "node scripts/initDb.js"
+  }
+}
