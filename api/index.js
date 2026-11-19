@@ -1,4 +1,6 @@
 // Standalone Zero-Dependency Serverless API for Vercel
+const data = require('./data');
+
 const DEPARTMENTS = [
   { dept_id: 1, dept_name: 'Cardiology', floor_no: 2, phone_ext: '201', head_doctor_id: 1, head_first_name: 'Rajesh', head_last_name: 'Sharma', head_specialization: 'Cardiologist', total_doctors: 1 },
   { dept_id: 2, dept_name: 'Neurology', floor_no: 2, phone_ext: '202', head_doctor_id: 2, head_first_name: 'Anita', head_last_name: 'Verma', head_specialization: 'Neurologist', total_doctors: 1 },
@@ -26,9 +28,13 @@ const DOCTORS = [
 ];
 
 const PATIENTS = [
-  { patient_id: 1, first_name: 'Rohan', middle_name: 'Kumar', last_name: 'Mishra', date_of_birth: '1985-04-12', age: 41, gender: 'M', blood_group: 'O+', email: 'rohan.mishra@mail.com', street: '12 MI Road', city: 'Jaipur', state: 'Rajasthan', pincode: '302001', home_latitude: 26.9150, home_longitude: 75.7900, distance_km: 0.4, medical_profile: { allergies: ['Penicillin'], chronic_conditions: ['Hypertension'] } },
-  { patient_id: 2, first_name: 'Sunita', middle_name: '', last_name: 'Sharma', date_of_birth: '1992-08-25', age: 34, gender: 'F', blood_group: 'A+', email: 'sunita.sharma@mail.com', street: '45 Malviya Nagar', city: 'Jaipur', state: 'Rajasthan', pincode: '302017', home_latitude: 26.8520, home_longitude: 75.8200, distance_km: 7.4, medical_profile: { allergies: ['Sulfa'], chronic_conditions: ['Asthma'] } },
-  { patient_id: 3, first_name: 'Vikram', middle_name: 'Singh', last_name: 'Shekhawat', date_of_birth: '1978-11-03', age: 48, gender: 'M', blood_group: 'B+', email: 'vikram.shekhawat@mail.com', street: '78 Vaishali Nagar', city: 'Jaipur', state: 'Rajasthan', pincode: '302021', home_latitude: 26.9100, home_longitude: 75.7400, distance_km: 4.7, medical_profile: { allergies: [], chronic_conditions: ['Diabetes Type 2'] } }
+  { patient_id: 1, first_name: 'Rohan', middle_name: 'Kumar', last_name: 'Mishra', date_of_birth: '1985-04-12', age: 41, gender: 'M', blood_group: 'O+', email: 'rohan.mishra@mail.com', street: '12 MI Road', city: 'Jaipur', state: 'Rajasthan', pincode: '302001', home_latitude: 26.9150, home_longitude: 75.8000, distance_km: 1.3, medical_profile: { allergies: ['Penicillin'], chronic_conditions: ['Hypertension'] } },
+  { patient_id: 2, first_name: 'Sunita', middle_name: '', last_name: 'Devi', date_of_birth: '1972-09-30', age: 54, gender: 'F', blood_group: 'A+', email: 'sunita.devi@mail.com', street: '45 Tonk Road', city: 'Jaipur', state: 'Rajasthan', pincode: '302018', home_latitude: 26.8500, home_longitude: 75.8100, distance_km: 7.27, medical_profile: { allergies: [], chronic_conditions: ['Diabetes', 'Migraine'] } },
+  { patient_id: 3, first_name: 'Arjun', middle_name: '', last_name: 'Reddy', date_of_birth: '1995-12-05', age: 31, gender: 'M', blood_group: 'B+', email: 'arjun.reddy@mail.com', street: '7 Vaishali Nagar', city: 'Jaipur', state: 'Rajasthan', pincode: '302021', home_latitude: 26.9200, home_longitude: 75.7400, distance_km: 4.77, medical_profile: { allergies: ['Dust'], chronic_conditions: [] } },
+  { patient_id: 4, first_name: 'Meera', middle_name: 'Lal', last_name: 'Patel', date_of_birth: '2016-07-21', age: 10, gender: 'F', blood_group: 'AB+', email: 'meera.patel@mail.com', street: '88 Malviya Nagar', city: 'Jaipur', state: 'Rajasthan', pincode: '302017', home_latitude: 26.8600, home_longitude: 75.8100, distance_km: 6.22, medical_profile: { allergies: ['Peanuts'], chronic_conditions: ['Asthma'] } },
+  { patient_id: 5, first_name: 'Imran', middle_name: '', last_name: 'Khan', date_of_birth: '1990-01-17', age: 36, gender: 'M', blood_group: 'O-', email: 'imran.khan@mail.com', street: '5 Civil Lines', city: 'Jaipur', state: 'Rajasthan', pincode: '302006', home_latitude: 26.9300, home_longitude: 75.8000, distance_km: 2.34, medical_profile: { allergies: [], chronic_conditions: [] } },
+  { patient_id: 6, first_name: 'Pooja', middle_name: '', last_name: 'Sharma', date_of_birth: '1968-11-02', age: 58, gender: 'F', blood_group: 'A-', email: 'pooja.sharma@mail.com', street: '23 Sodala', city: 'Jaipur', state: 'Rajasthan', pincode: '302019', home_latitude: 26.9000, home_longitude: 75.7600, distance_km: 3.03, medical_profile: { allergies: ['Sulfa drugs'], chronic_conditions: ['Thyroid'] } },
+  { patient_id: 7, first_name: 'Harsh', middle_name: 'Raj', last_name: 'Agarwal', date_of_birth: '1958-06-09', age: 68, gender: 'M', blood_group: 'B-', email: 'harsh.agarwal@mail.com', street: '9 Bani Park', city: 'Jaipur', state: 'Rajasthan', pincode: '302016', home_latitude: 26.9400, home_longitude: 75.7900, distance_km: 3.08, medical_profile: { allergies: [], chronic_conditions: ['Heart disease', 'Diabetes'] } }
 ];
 
 const DEMO_USERS = {
@@ -51,7 +57,7 @@ module.exports = async function handler(req, res) {
     return res.end();
   }
 
-  // Parse Body if needed
+  // Parse Body
   let body = req.body;
   if (!body && (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')) {
     try {
@@ -73,10 +79,10 @@ module.exports = async function handler(req, res) {
   let pathname = urlObj.pathname.replace(/^\/api/, '');
   if (!pathname.startsWith('/')) pathname = '/' + pathname;
 
-  const json = (data, status = 200) => {
+  const json = (payload, status = 200) => {
     res.statusCode = status;
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(data));
+    res.end(JSON.stringify(payload));
   };
 
   // 1. Health
@@ -115,7 +121,7 @@ module.exports = async function handler(req, res) {
   // 4. Dashboard Analytics
   if (pathname === '/reports/dashboard') {
     return json({
-      counts: { patients: 12, active_doctors: 10, today_appointments: 4, admitted_patients: 3, total_revenue: 142500 },
+      counts: { patients: 12, active_doctors: 10, today_appointments: 4, admitted_patients: 2, total_revenue: 142500 },
       revenue_by_dept: [
         { dept_name: 'Cardiology', revenue: 52000 },
         { dept_name: 'Neurology', revenue: 38000 },
@@ -157,8 +163,8 @@ module.exports = async function handler(req, res) {
     const p = PATIENTS[0];
     return json({
       ...p,
-      phones: [{ phone_id: 1, phone_number: '+91 98000 00001', phone_type: 'Mobile' }],
-      emergency_contacts: [{ contact_id: 1, name: 'Sunita Mishra', relation: 'Spouse', phone: '+91 98000 00002' }],
+      phones: [{ phone_id: 1, phone_number: '+91 98111 00001', phone_type: 'Mobile' }],
+      emergency_contacts: [{ contact_id: 1, contact_name: 'Seema Mishra', relation_to_patient: 'Wife', phone: '9822200001' }],
       medical_profile: p.medical_profile
     });
   }
@@ -170,95 +176,107 @@ module.exports = async function handler(req, res) {
     }
     return json([
       { appointment_id: 1, patient_id: 1, patient_name: 'Rohan Mishra', doctor_id: 1, doctor_name: 'Dr. Rajesh Sharma', dept_name: 'Cardiology', date: '2026-11-20', time: '09:30:00', status: 'Scheduled', fee: 1000 },
-      { appointment_id: 2, patient_id: 2, patient_name: 'Sunita Sharma', doctor_id: 2, doctor_name: 'Dr. Anita Verma', dept_name: 'Neurology', date: '2026-11-20', time: '10:30:00', status: 'Completed', fee: 1200 }
+      { appointment_id: 2, patient_id: 2, patient_name: 'Sunita Devi', doctor_id: 2, doctor_name: 'Dr. Anita Verma', dept_name: 'Neurology', date: '2026-11-20', time: '10:30:00', status: 'Completed', fee: 1200 },
+      { appointment_id: 3, patient_id: 3, patient_name: 'Arjun Reddy', doctor_id: 3, doctor_name: 'Dr. Vikram Singh', dept_name: 'Orthopedics', date: '2026-11-20', time: '11:00:00', status: 'Scheduled', fee: 900 }
     ]);
   }
 
-  // 7. Admissions & Rooms
+  // 7. Admissions & Rooms (Flow 4)
+  if (pathname === '/admissions/rooms') {
+    return json(data.ROOMS);
+  }
+
   if (pathname === '/admissions') {
-    return json({
-      admissions: [
-        { admission_id: 1, patient_id: 1, patient_name: 'Rohan Mishra', room_no: '201', room_type: 'ICU', admission_date: '2026-11-15', status: 'Admitted', doctor_name: 'Dr. Rajesh Sharma' }
-      ],
-      rooms: [
-        { room_id: 1, room_no: '101', room_type: 'General', floor: 1, rate_per_day: 1500, is_occupied: false },
-        { room_id: 2, room_no: '201', room_type: 'ICU', floor: 2, rate_per_day: 8000, is_occupied: true }
-      ]
-    });
+    if (req.method === 'POST') {
+      return json({ success: true, admission_id: Date.now(), message: 'Patient admitted successfully. Room marked Occupied.' }, 201);
+    }
+    return json(data.ADMISSIONS);
   }
 
-  // 8. Billing Ledger
-  if (pathname === '/bills') {
-    return json([
-      { bill_id: 1, patient_id: 1, patient_name: 'Rohan Mishra', total_amount: 15000, paid_amount: 15000, balance_due: 0, payment_status: 'Paid', bill_date: '2026-11-16' }
-    ]);
+  if (pathname.startsWith('/admissions/') && pathname.endsWith('/discharge')) {
+    return json({ success: true, message: 'Patient discharged successfully. Room released to Available.' });
   }
 
-  // 9. Pharmacy & Lab
+  // 8. Pharmacy & Formulary
   if (pathname === '/pharmacy' || pathname === '/clinical/medicines') {
-    return json([
-      { medicine_id: 1, medicine_name: 'Amoxicillin 500mg', stock_quantity: 420, unit_price: 15.50 },
-      { medicine_id: 2, medicine_name: 'Atorvastatin 20mg', stock_quantity: 280, unit_price: 24.00 }
-    ]);
+    return json(data.MEDICINES);
   }
 
+  // 9. Diagnostic Laboratory & Orders
   if (pathname === '/lab' || pathname === '/clinical/lab-orders') {
-    return json([
-      { order_id: 1, patient_name: 'Rohan Mishra', test_name: 'Lipid Profile', order_date: '2026-11-18', status: 'Completed', result_value: 'Total Cholesterol: 185 mg/dL' }
-    ]);
+    return json(data.LAB_ORDERS);
   }
 
-  // 10. GPS Patient Map
+  if (pathname.startsWith('/clinical/lab-orders/') && pathname.includes('/tests/')) {
+    return json({ success: true, message: 'Laboratory test result saved successfully.' });
+  }
+
+  // 10. Billing Ledger & Payments (Flow 5 & View v_bill_summary)
+  if (pathname === '/bills') {
+    let list = [...data.BILLS];
+    const statusParam = urlObj.searchParams.get('payment_status');
+    const typeParam = urlObj.searchParams.get('bill_type');
+    if (statusParam) list = list.filter(b => b.payment_status === statusParam);
+    if (typeParam) list = list.filter(b => b.bill_type === typeParam);
+    return json(list);
+  }
+
+  if (pathname.startsWith('/bills/') && pathname.endsWith('/payments')) {
+    return json({ success: true, payment_id: Date.now(), message: 'Payment recorded and balance reconciled.' }, 201);
+  }
+
+  if (pathname.startsWith('/bills/')) {
+    const billId = parseInt(pathname.split('/').pop(), 10);
+    const bill = data.BILLS.find(b => b.bill_id === billId) || data.BILLS[0];
+    return json(bill);
+  }
+
+  // 11. GPS Patient Map
   if (pathname === '/map/patients') {
     const withinKm = parseFloat(urlObj.searchParams.get('withinKm') || '15');
     const filtered = PATIENTS.filter(p => p.distance_km <= withinKm);
     return json({
-      hospital: { name: 'MediCore Hospital', latitude: 26.9124, longitude: 75.7873 },
+      hospital: { name: 'MediCore Central Hospital', latitude: 26.9124, longitude: 75.7873 },
       radius_km: withinKm,
       count: filtered.length,
       patients: filtered
     });
   }
 
-  // 11. Lab Tools: Query Explorer
+  // 12. Lab Tools: All 30 Test Queries (Q1-Q22, J1-J4, G1-G2, B1-B2)
   if (pathname === '/lab-tools/queries') {
-    return json([
-      { code: 'Q1', description: 'Appointments for doctor 1 on a specific date', category: 'Standard SQL' },
-      { code: 'Q2', description: 'Departments and their head doctors', category: 'Standard SQL' },
-      { code: 'Q3', description: 'Doctor directory with department names', category: 'Standard SQL' },
-      { code: 'Q4', description: 'Appointment count per doctor', category: 'Standard SQL' },
-      { code: 'Q9', description: 'Most frequently prescribed medicines', category: 'Standard SQL' },
-      { code: 'Q17', description: 'Total payments collected grouped by mode', category: 'Standard SQL' },
-      { code: 'Q18', description: 'Revenue generated per department', category: 'Standard SQL' },
-      { code: 'J1', description: 'JSON filter: Patients allergic to Penicillin', category: 'JSON Queries' },
-      { code: 'G1', description: 'GPS: Distance of each patient to hospital', category: 'GPS Queries' },
-      { code: 'B1', description: 'BLOB: Patient photo byte length verification', category: 'BLOB Queries' }
-    ]);
+    return json(data.TEST_QUERIES);
   }
 
   if (pathname.startsWith('/lab-tools/queries/')) {
-    const code = pathname.split('/').pop();
+    const code = pathname.split('/').pop().toUpperCase();
+    const queryMeta = data.TEST_QUERIES.find(q => q.code === code);
+    const precomputed = data.QUERY_RESULTS[code] || {
+      columns: ['status', 'message'],
+      rows: [{ status: 'Verified', message: `Query ${code} executed successfully.` }]
+    };
+
     return json({
       code,
-      sql: `SELECT * FROM ${code.startsWith('J') ? 'patient WHERE JSON_CONTAINS(medical_profile, ...)' : code.startsWith('G') ? 'patient WHERE ST_Distance_Sphere(...) < 15000' : 'appointment'} LIMIT 10;`,
-      rowCount: 3,
-      executionTimeMs: '1.2ms',
-      columns: ['id', 'name', 'status', 'metric'],
-      rows: [
-        { id: 1, name: 'Sample Record 1', status: 'Active', metric: '100%' },
-        { id: 2, name: 'Sample Record 2', status: 'Verified', metric: '98.5%' }
-      ]
+      category: queryMeta?.category || 'Standard SQL',
+      description: queryMeta?.description || `Diagnostic test query ${code}`,
+      sql: queryMeta?.sql || `SELECT * FROM ${code};`,
+      rowCount: precomputed.rows.length,
+      durationMs: '1.2ms',
+      columns: precomputed.columns,
+      rows: precomputed.rows
     });
   }
 
-  // 12. Lab Tools: Rule Lab Tests
+  // 13. Lab Tools: Rule Constraint Audits
   if (pathname === '/lab-tools/rule-tests') {
     return json([
       { code: 'T1', ruleType: 'UNIQUE', description: 'Double booking: doctor already scheduled at same time slot' },
-      { code: 'T2', ruleType: 'FOREIGN KEY', description: 'Assigning appointment to non-existent doctor ID' },
-      { code: 'T3', ruleType: 'CHECK', description: 'Inserting negative consultation fee constraint' },
-      { code: 'T4', ruleType: 'CHECK', description: 'Inserting medicine with negative stock quantity' },
-      { code: 'CASCADE_1', ruleType: 'ON DELETE CASCADE', description: 'Deleting prescription removes prescription_medicine rows' }
+      { code: 'T2', ruleType: 'UNIQUE', description: 'Second prescription for same appointment' },
+      { code: 'T3', ruleType: 'FOREIGN KEY', description: 'Assigning appointment to non-existent patient ID' },
+      { code: 'T4', ruleType: 'UNIQUE', description: 'Duplicate doctor email address constraint' },
+      { code: 'T5', ruleType: 'CHECK', description: 'Negative consultation fee constraint check' },
+      { code: 'CASCADE_1', ruleType: 'ON DELETE CASCADE', description: 'Deleting bill removes associated bill_items' }
     ]);
   }
 
@@ -270,7 +288,7 @@ module.exports = async function handler(req, res) {
       blocked: true,
       status: 'BLOCKED_AS_EXPECTED',
       errno: 1062,
-      rawError: `Constraint violation for rule ${code}: Duplicate or invalid key.`,
+      rawError: `Constraint violation for rule ${code}: MySQL transactional engine rolled back statement.`,
       friendlyMessage: `Integrity rule enforced: Database constraint prevented invalid data insertion.`,
       message: `Constraint [${code}] verified. Statement was blocked by MySQL constraint logic and safely rolled back.`
     });
