@@ -10,27 +10,40 @@ export async function apiRequest(endpoint, options = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  // If body is FormData, do not set Content-Type so browser sets boundary
   if (!(options.body instanceof FormData) && options.body && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json';
   }
 
   const url = `${API_BASE}${endpoint}`;
-  const response = await fetch(url, {
-    ...options,
-    headers
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers
+    });
+  } catch (netErr) {
+    const error = new Error('Network connection unavailable. Operating in local offline mode.');
+    error.isNetworkError = true;
+    throw error;
+  }
 
-  const contentType = response.headers.get('content-type');
+  const contentType = response.headers.get('content-type') || '';
   let data;
-  if (contentType && contentType.includes('application/json')) {
-    data = await response.json();
+  if (contentType.includes('application/json')) {
+    try {
+      data = await response.json();
+    } catch (e) {
+      data = {};
+    }
   } else {
     data = await response.text();
   }
 
   if (!response.ok) {
-    const error = new Error(data.message || 'Request failed');
+    const msg = (typeof data === 'object' && (data.message || data.error)) ||
+                (typeof data === 'string' && data.length < 150 && !data.includes('<html') ? data : null) ||
+                `Service temporarily unavailable (${response.status})`;
+    const error = new Error(msg);
     error.status = response.status;
     error.data = data;
     throw error;
