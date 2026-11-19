@@ -38,16 +38,21 @@ app.use('/api/reports', require('./routes/labTools'));
 app.use('/api', require('./routes/labTools')); // for /api/map/patients
 
 // Serve Production Client Assets if built
-const clientDistPath = path.join(__dirname, '../../client/dist');
+const fs = require('fs');
+const rootDistPath = path.join(__dirname, '../../dist');
+const clientDistPath = fs.existsSync(rootDistPath) ? rootDistPath : path.join(__dirname, '../../client/dist');
 app.use(express.static(clientDistPath));
 
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
-  res.sendFile(path.join(clientDistPath, 'index.html'), (err) => {
-    if (err) next();
-  });
+  const indexPath = path.join(clientDistPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    next();
+  }
 });
 
 // 404 Handler for APIs
@@ -69,6 +74,8 @@ async function startServer() {
   });
 }
 
-startServer();
+if (require.main === module) {
+  startServer();
+}
 
 module.exports = app;
