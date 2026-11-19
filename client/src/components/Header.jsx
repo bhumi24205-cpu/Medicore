@@ -17,11 +17,11 @@ export default function Header() {
   return (
     <header className="h-16 bg-white border-b border-[#E1EDF5] px-6 flex items-center justify-between shadow-xs flex-shrink-0 z-20">
       <div className="flex items-center gap-4">
-        <h2 className="text-base sm:text-lg font-bold text-[#123B5D] font-heading tracking-tight">
-          MediCore Clinical Portal
+        <h2 className="text-base font-bold text-[#123B5D] font-heading tracking-tight">
+          MediCore Clinical Management
         </h2>
         <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#DDF3EE] text-[#0C685B] border border-[#BFE7DE]">
-          <Database className="w-3 h-3 text-[#16A6A1]" /> MySQL 8 Connected
+          <Database className="w-3.5 h-3.5 text-[#16A6A1]" /> Active Database: MySQL 8
         </span>
       </div>
 
@@ -30,22 +30,22 @@ export default function Header() {
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#123B5D] bg-[#F5FAFC] hover:bg-[#E1EDF5] border border-[#C2DBEB] transition-colors"
-          title="Go to Public Hospital Website"
+          title="Return to Public Hospital Website"
         >
           <Globe className="w-3.5 h-3.5 text-[#16A6A1]" />
           <span className="hidden sm:inline">Hospital Website</span>
         </Link>
 
-        {/* Quick Demo Role Switcher */}
+        {/* Demo Role Switcher */}
         <div className="hidden lg:flex items-center gap-1 bg-[#F5FAFC] border border-[#E1EDF5] rounded-xl p-1 text-xs">
           <span className="text-[#657B8F] font-semibold px-2 flex items-center gap-1">
-            <UserCheck className="w-3 h-3 text-[#16A6A1]" /> Switch:
+            <UserCheck className="w-3.5 h-3.5 text-[#16A6A1]" /> Switch Role:
           </span>
           {demoAccounts.map(acc => (
             <button
               key={acc.username}
               onClick={() => switchDemoRole(acc.username)}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                 user?.username === acc.username
                   ? 'bg-[#123B5D] text-white font-semibold shadow-xs'
                   : 'text-[#475A6C] hover:bg-[#E1EDF5]'
@@ -59,8 +59,8 @@ export default function Header() {
         {/* User Info & Logout */}
         <div className="flex items-center gap-3 pl-3 border-l border-[#E1EDF5]">
           <div className="text-right">
-            <div className="text-xs sm:text-sm font-bold text-[#123B5D]">{user?.username}</div>
-            <div className="text-[11px] text-[#16A6A1] font-semibold">{user?.role}</div>
+            <div className="text-xs font-bold text-[#123B5D]">{user?.username}</div>
+            <div className="text-xs text-[#16A6A1] font-semibold">{user?.role}</div>
           </div>
           <button
             onClick={logout}

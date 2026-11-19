@@ -59,45 +59,45 @@ export default function RuleLab() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-red-600 flex items-center justify-center text-white">
-              <ShieldAlert className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xl bg-[#123B5D] flex items-center justify-center text-white shadow-xs">
+              <ShieldAlert className="w-4 h-4 text-[#16A6A1]" />
             </div>
-            <h1 className="text-2xl font-bold font-serif text-slate-900">Rule Lab (T1–T16)</h1>
+            <h1 className="text-xl sm:text-2xl font-bold font-heading text-[#123B5D]">Database Integrity & Constraint Audit</h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Professor Showcase: Tests database constraints (PRIMARY, UNIQUE, FK, CHECK, CASCADE). Every statement executes inside an isolated transaction that is <strong className="text-red-700">ALWAYS ROLLED BACK</strong> to protect live data.
+          <p className="text-xs text-[#657B8F] mt-1">
+            Automated verification of database constraints (PRIMARY, UNIQUE, FOREIGN KEY, CHECK, CASCADE). Statements execute in isolated transactions and are immediately rolled back.
           </p>
         </div>
 
         <button
           onClick={runAllTests}
           disabled={runningAll || ruleTests.length === 0}
-          className="px-5 py-2.5 rounded-lg bg-medicore-sidebar hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-colors flex items-center gap-2 disabled:opacity-50"
+          className="px-5 py-2.5 rounded-xl bg-[#123B5D] hover:bg-[#0C273E] text-white font-semibold text-xs shadow-sm transition-colors flex items-center gap-2 disabled:opacity-50"
         >
           <Play className="w-3.5 h-3.5 fill-current" />
-          {runningAll ? 'Executing Suite...' : 'Run All 18 Rule Tests'}
+          {runningAll ? 'Executing Suite...' : 'Run Constraint Audit Suite'}
         </button>
       </div>
 
       <ErrorAlert error={error} onClose={() => setError(null)} />
 
       {/* Overview Banner */}
-      <div className="p-4 bg-slate-900 rounded-xl text-white text-xs flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+      <div className="p-4 bg-[#123B5D] rounded-2xl text-white text-xs flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs border border-[#0C273E]">
         <div className="flex items-center gap-3">
-          <Lock className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+          <Lock className="w-5 h-5 text-[#35C2BD] flex-shrink-0" />
           <div>
-            <div className="font-bold text-sm">Automated Safety Mechanism</div>
-            <p className="text-slate-400 text-[11px] mt-0.5">
-              Destructive SQL (deletions, invalid inserts) runs in dedicated rolled-back transactions. Green indicates MySQL constraints successfully blocked violations as expected.
+            <div className="font-bold text-sm">Transactional Safety Guarantee</div>
+            <p className="text-slate-300 text-xs mt-0.5">
+              Testing operations run in rollback-only connections. Successful rejection by MySQL confirms active schema integrity enforcement.
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-3 font-mono text-[11px]">
-          <span className="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-semibold">
-            ✓ Green = Blocked
+        <div className="flex items-center gap-3 text-xs">
+          <span className="px-2.5 py-1 rounded-lg bg-[#DDF3EE] text-[#0C685B] font-semibold border border-[#BFE7DE]">
+            Enforced (Blocked)
           </span>
-          <span className="px-2.5 py-1 rounded bg-red-950 text-red-300 border border-red-800 font-semibold">
-            ✕ Red = Rule Broken
+          <span className="px-2.5 py-1 rounded-lg bg-red-100 text-red-800 font-semibold border border-red-200">
+            Violation Allowed
           </span>
         </div>
       </div>

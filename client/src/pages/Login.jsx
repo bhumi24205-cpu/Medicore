@@ -94,11 +94,11 @@ export default function Login() {
 
       <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-[#C2DBEB] p-8 text-[#263746]">
         <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#123B5D] to-[#16A6A1] text-white flex items-center justify-center font-bold text-2xl mx-auto shadow-md">
+          <div className="w-12 h-12 rounded-2xl bg-[#123B5D] text-white flex items-center justify-center font-bold text-2xl mx-auto shadow-sm">
             M+
           </div>
-          <h1 className="text-2xl font-bold font-heading text-[#123B5D] mt-3">MediCore Portal</h1>
-          <p className="text-xs text-[#657B8F] mt-0.5">Transactional Clinical & Hospital EHR System</p>
+          <h1 className="text-xl sm:text-2xl font-bold font-heading text-[#123B5D] mt-3">MediCore Healthcare Portal</h1>
+          <p className="text-xs text-[#657B8F] mt-1">EHR & Hospital Clinical Administration</p>
         </div>
 
         <ErrorAlert error={error} onClose={() => setError(null)} />
@@ -107,16 +107,16 @@ export default function Login() {
         {showDbConfig && (
           <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-amber-900">
-              <Database className="w-4 h-4 text-amber-700" /> Connect MySQL Database
+              <Database className="w-4 h-4 text-amber-700" /> Database Connection Setup
             </div>
-            <p className="text-amber-800 text-[11px] leading-relaxed">
-              Your local MySQL server (port 3306) requires a root password. Enter your MySQL root password below to link the database:
+            <p className="text-amber-800 text-xs leading-relaxed">
+              Your local MySQL server (port 3306) requires password authentication. Enter your MySQL root password below:
             </p>
 
             {dbSuccess ? (
-              <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center gap-1.5">
+              <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center gap-1.5 text-xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Connected! Loading dashboard...
+                Connection verified. Initializing session...
               </div>
             ) : (
               <form onSubmit={handleConnectDb} className="space-y-2">
@@ -130,9 +130,9 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={testingDb}
-                  className="w-full py-2 bg-[#16A6A1] hover:bg-[#118480] text-white font-bold rounded-xl transition-colors shadow-xs disabled:opacity-50"
+                  className="w-full py-2 bg-[#16A6A1] hover:bg-[#118480] text-white font-bold rounded-xl transition-colors shadow-xs disabled:opacity-50 text-xs"
                 >
-                  {testingDb ? 'Connecting & Verifying...' : 'Connect to MySQL'}
+                  {testingDb ? 'Verifying Connection...' : 'Connect to MySQL Database'}
                 </button>
               </form>
             )}
@@ -150,7 +150,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
               required
               placeholder="e.g. admin or root"
-              className="w-full px-3.5 py-2.5 border border-[#C2DBEB] bg-[#F5FAFC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#16A6A1]/40 focus:border-[#16A6A1] text-sm font-medium"
+              className="w-full px-3.5 py-2.5 border border-[#C2DBEB] bg-[#F5FAFC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#16A6A1]/40 focus:border-[#16A6A1] text-xs sm:text-sm font-medium"
             />
           </div>
 
@@ -163,16 +163,16 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3.5 py-2.5 border border-[#C2DBEB] bg-[#F5FAFC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#16A6A1]/40 focus:border-[#16A6A1] text-sm"
+              className="w-full px-3.5 py-2.5 border border-[#C2DBEB] bg-[#F5FAFC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#16A6A1]/40 focus:border-[#16A6A1] text-xs sm:text-sm"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 rounded-xl bg-[#123B5D] hover:bg-[#0C273E] text-white font-semibold text-sm transition-all shadow-md active:scale-98 disabled:opacity-50"
+            className="w-full py-3 px-4 rounded-xl bg-[#123B5D] hover:bg-[#0C273E] text-white font-semibold text-xs sm:text-sm transition-all shadow-sm active:scale-98 disabled:opacity-50"
           >
-            {loading ? 'Authenticating...' : 'Sign In to Portal'}
+            {loading ? 'Authenticating Credentials...' : 'Sign In to Portal'}
           </button>
         </form>
 
@@ -181,47 +181,47 @@ export default function Login() {
           <button
             type="button"
             onClick={() => setShowDbConfig(!showDbConfig)}
-            className="text-[11px] text-[#657B8F] hover:text-[#16A6A1] font-semibold flex items-center justify-center gap-1 mx-auto"
+            className="text-xs text-[#657B8F] hover:text-[#16A6A1] font-semibold flex items-center justify-center gap-1 mx-auto"
           >
-            <Database className="w-3 h-3 text-[#16A6A1]" />
-            {showDbConfig ? 'Hide MySQL Configuration' : 'Configure MySQL Root Password'}
+            <Database className="w-3.5 h-3.5 text-[#16A6A1]" />
+            {showDbConfig ? 'Hide Connection Configuration' : 'Configure MySQL Root Password'}
           </button>
         </div>
 
-        {/* Quick Demo Logins */}
+        {/* Quick Role Logins */}
         <div className="mt-6 pt-5 border-t border-[#E1EDF5]">
           <div className="text-xs font-bold text-[#123B5D] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-            <UserCheck className="w-3.5 h-3.5 text-[#16A6A1]" /> Quick Demo Role Logins
+            <UserCheck className="w-3.5 h-3.5 text-[#16A6A1]" /> Authorized Role Access
           </div>
-          <p className="text-[11px] text-[#657B8F] mb-3">One-click sign-in to test role-based permissions (default pass: password123):</p>
+          <p className="text-xs text-[#657B8F] mb-3">Select user role profile to authenticate session:</p>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <button
               onClick={() => demoQuickLogin('admin')}
               className="p-2.5 text-left rounded-xl border border-[#E1EDF5] bg-[#F5FAFC] hover:border-[#16A6A1] hover:bg-[#DDF3EE]/50 transition-colors"
             >
-              <div className="font-bold text-[#123B5D]">Admin</div>
-              <div className="text-[10px] text-[#657B8F]">Full system & Rule Lab</div>
+              <div className="font-bold text-[#123B5D]">Administrator</div>
+              <div className="text-xs text-[#657B8F]">Full Clinical & Audit Access</div>
             </button>
             <button
               onClick={() => demoQuickLogin('reception')}
               className="p-2.5 text-left rounded-xl border border-[#E1EDF5] bg-[#F5FAFC] hover:border-[#16A6A1] hover:bg-[#DDF3EE]/50 transition-colors"
             >
               <div className="font-bold text-[#123B5D]">Receptionist</div>
-              <div className="text-[10px] text-[#657B8F]">Registration & bookings</div>
+              <div className="text-xs text-[#657B8F]">Patient Registration & OPD</div>
             </button>
             <button
               onClick={() => demoQuickLogin('dr.rajesh')}
               className="p-2.5 text-left rounded-xl border border-[#E1EDF5] bg-[#F5FAFC] hover:border-[#16A6A1] hover:bg-[#DDF3EE]/50 transition-colors"
             >
-              <div className="font-bold text-[#123B5D]">Doctor (Rajesh)</div>
-              <div className="text-[10px] text-[#657B8F]">Prescriptions & labs</div>
+              <div className="font-bold text-[#123B5D]">Consulting Physician</div>
+              <div className="text-xs text-[#657B8F]">Clinical Notes & Rx</div>
             </button>
             <button
               onClick={() => demoQuickLogin('billing')}
               className="p-2.5 text-left rounded-xl border border-[#E1EDF5] bg-[#F5FAFC] hover:border-[#16A6A1] hover:bg-[#DDF3EE]/50 transition-colors"
             >
-              <div className="font-bold text-[#123B5D]">Billing</div>
-              <div className="text-[10px] text-[#657B8F]">Invoices & payments</div>
+              <div className="font-bold text-[#123B5D]">Billing & Accounts</div>
+              <div className="text-xs text-[#657B8F]">Invoices & Payments</div>
             </button>
           </div>
         </div>

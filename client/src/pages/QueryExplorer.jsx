@@ -54,13 +54,13 @@ export default function QueryExplorer() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-medicore-teal flex items-center justify-center text-white">
-              <Terminal className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xl bg-[#123B5D] flex items-center justify-center text-white shadow-xs">
+              <Terminal className="w-4 h-4 text-[#16A6A1]" />
             </div>
-            <h1 className="text-2xl font-bold font-serif text-slate-900">Query Explorer</h1>
+            <h1 className="text-xl sm:text-2xl font-bold font-heading text-[#123B5D]">Database Query Explorer</h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Professor Showcase: Interactive runner for all 30 queries in <code>medicore_test_queries.sql</code> (Q1–Q22, J1–J4, G1–G2, B1–B2).
+          <p className="text-xs text-[#657B8F] mt-1">
+            Diagnostic execution console for standard relational joins, derived views, JSON structures, geospatial queries, and binary BLOB columns.
           </p>
         </div>
       </div>

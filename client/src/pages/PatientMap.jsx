@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
 // Custom Hospital Marker Icon
 const hospitalIcon = new L.DivIcon({
   className: 'custom-hospital-marker',
-  html: `<div style="background-color: #0E9F8E; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 3px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">H</div>`,
+  html: `<div style="background-color: #123B5D; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px; border: 3px solid #16A6A1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">H</div>`,
   iconSize: [34, 34],
   iconAnchor: [17, 17]
 });
@@ -24,9 +24,9 @@ const hospitalIcon = new L.DivIcon({
 // Patient Marker Icon
 const patientIcon = new L.DivIcon({
   className: 'custom-patient-marker',
-  html: `<div style="background-color: #12263A; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 11px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">P</div>`,
-  iconSize: [24, 24],
-  iconAnchor: [12, 12]
+  html: `<div style="background-color: #16A6A1; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 11px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">P</div>`,
+  iconSize: [22, 22],
+  iconAnchor: [11, 11]
 });
 
 export default function PatientMap() {
@@ -54,22 +54,22 @@ export default function PatientMap() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold font-serif text-slate-900">Patient Proximity & Catchment Map</h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Queries <code className="text-teal-700 font-mono">G1</code> (distance) and <code className="text-teal-700 font-mono">G2</code> (<code className="text-teal-700">ST_Distance_Sphere(POINT(lng, lat))</code>) centered at Jaipur Hospital (26.9124°N, 75.7873°E).
+          <h1 className="text-xl sm:text-2xl font-bold font-heading text-[#123B5D]">Geographical Patient Catchment Map</h1>
+          <p className="text-xs text-[#657B8F] mt-1">
+            Geospatial proximity evaluation centered at Jaipur Hospital (26.9124° N, 75.7873° E) using spherical distance calculations.
           </p>
         </div>
       </div>
 
       {/* Radius Slider Control Bar */}
-      <div className="bg-white p-5 rounded-xl border border-medicore-border shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="flex-1 w-full space-y-1">
+      <div className="bg-white p-5 rounded-2xl border border-[#E1EDF5] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="flex-1 w-full space-y-1.5">
           <div className="flex justify-between items-center text-xs">
-            <span className="font-bold text-slate-700 uppercase flex items-center gap-1.5">
-              <Compass className="w-4 h-4 text-medicore-teal" /> Catchment Radius Slider (G2 Query):
+            <span className="font-bold text-[#123B5D] uppercase tracking-wider flex items-center gap-1.5">
+              <Compass className="w-4 h-4 text-[#16A6A1]" /> Proximity Radius:
             </span>
-            <span className="font-mono font-bold text-teal-800 text-sm bg-teal-50 px-2.5 py-0.5 rounded border border-teal-200">
-              {radiusKm} km radius
+            <span className="font-mono font-bold text-[#0C685B] text-xs bg-[#DDF3EE] px-2.5 py-0.5 rounded-lg border border-[#BFE7DE]">
+              {radiusKm} km Radius
             </span>
           </div>
           <input
@@ -79,20 +79,20 @@ export default function PatientMap() {
             step="1"
             value={radiusKm}
             onChange={(e) => setRadiusKm(parseInt(e.target.value, 10))}
-            className="w-full accent-medicore-teal cursor-pointer"
+            className="w-full accent-[#16A6A1] cursor-pointer"
           />
-          <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-            <span>2 km (Local clinic)</span>
-            <span>5 km (Query G2)</span>
-            <span>15 km (Jaipur Metro)</span>
-            <span>40 km (District Catchment)</span>
+          <div className="flex justify-between text-xs text-[#657B8F]">
+            <span>2 km (Local Clinic)</span>
+            <span>5 km (Primary Catchment)</span>
+            <span>15 km (Jaipur Urban)</span>
+            <span>40 km (Regional District)</span>
           </div>
         </div>
 
-        <div className="text-right sm:border-l sm:border-slate-100 sm:pl-6 flex-shrink-0">
-          <div className="text-xs text-slate-500 uppercase font-semibold">Patients Within Radius</div>
-          <div className="text-2xl font-bold font-serif text-teal-800">
-            {patientsInside.length} patient{patientsInside.length === 1 ? '' : 's'}
+        <div className="text-right sm:border-l sm:border-[#E1EDF5] sm:pl-6 flex-shrink-0">
+          <div className="text-xs text-[#657B8F] uppercase font-bold tracking-wider">Patients Inside Catchment</div>
+          <div className="text-2xl font-bold font-heading text-[#123B5D] mt-1">
+            {patientsInside.length} Patient{patientsInside.length === 1 ? '' : 's'}
           </div>
         </div>
       </div>
